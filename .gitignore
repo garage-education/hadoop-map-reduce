@@ -1,2 +1,9 @@
-.idea/*
 .idea
+.idea/*
+target/
+.classpath
+.factorypath
+.metals/
+.project
+.settings/
+.vscode/
