@@ -1,0 +1,11 @@
+.idea
+.idea/*
+target/
+.classpath
+.factorypath
+.metals/
+.project
+.settings/
+.vscode/
+InputData/shakespeare2.txt
+InputData/shakespeare.txt
