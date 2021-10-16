@@ -11,11 +11,14 @@ import org.apache.hadoop.io.Text;
 public class IndexDriver {
 
     public static void main(String[] args) throws Exception {
-        String input = "/Users/moustafa.alaa/moustafa_ws/hadoop-map-reduce/InputData/inverted_index/input/";
-        String output = "/Users/moustafa.alaa/moustafa_ws/hadoop-map-reduce/InputData/inverted_index/output";
-        System.setProperty("HADOOP_USER_NAME", "root");
+        if (args.length != 2) {
+            System.err.println("Usage IndexDriver <input_dir> <output_dir>");
+            System.exit(2);
+        }
         Configuration conf = new Configuration();
-        //conf.set("fs.defaultFS", "hdfs://192.168.56.202:9000");
+        String input = args[0];
+        String output = args[1];
+
         FileSystem fs = FileSystem.get(conf);
         boolean exists = fs.exists(new Path(output));
         if(exists) {
