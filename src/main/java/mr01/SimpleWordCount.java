@@ -56,7 +56,7 @@ public class SimpleWordCount {
         Job job = Job.getInstance(conf, "word count");
         job.setJarByClass(SimpleWordCount.class);
         job.setMapperClass(MapperSide.class);
-        // job.setCombinerClass(ReducerSide.class);
+        job.setCombinerClass(ReducerSide.class);
         job.setReducerClass(ReducerSide.class);
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(IntWritable.class);

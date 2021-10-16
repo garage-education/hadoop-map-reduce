@@ -9,3 +9,4 @@ target/
 .vscode/
 InputData/shakespeare2.txt
 InputData/shakespeare.txt
+InputData/shakespeare-duplicated.txt

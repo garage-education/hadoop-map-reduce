@@ -1,0 +1,83 @@
+2021-09-26 22:00:01,695 INFO org.apache.hadoop.mapreduce.Job (main):  map 90% reduce 14%
+2021-09-26 22:00:03,702 INFO org.apache.hadoop.mapreduce.Job (main):  map 91% reduce 14%
+2021-09-26 22:00:08,722 INFO org.apache.hadoop.mapreduce.Job (main):  map 91% reduce 16%
+2021-09-26 22:00:09,725 INFO org.apache.hadoop.mapreduce.Job (main):  map 92% reduce 16%
+2021-09-26 22:00:10,729 INFO org.apache.hadoop.mapreduce.Job (main):  map 92% reduce 18%
+2021-09-26 22:00:13,746 INFO org.apache.hadoop.mapreduce.Job (main):  map 93% reduce 18%
+2021-09-26 22:00:17,769 INFO org.apache.hadoop.mapreduce.Job (main):  map 94% reduce 18%
+2021-09-26 22:00:21,790 INFO org.apache.hadoop.mapreduce.Job (main):  map 95% reduce 18%
+2021-09-26 22:00:27,818 INFO org.apache.hadoop.mapreduce.Job (main):  map 97% reduce 18%
+2021-09-26 22:00:29,824 INFO org.apache.hadoop.mapreduce.Job (main):  map 98% reduce 18%
+2021-09-26 22:00:32,836 INFO org.apache.hadoop.mapreduce.Job (main):  map 99% reduce 19%
+2021-09-26 22:00:39,860 INFO org.apache.hadoop.mapreduce.Job (main):  map 100% reduce 19%
+2021-09-26 22:00:41,871 INFO org.apache.hadoop.mapreduce.Job (main):  map 100% reduce 24%
+2021-09-26 22:00:42,875 INFO org.apache.hadoop.mapreduce.Job (main):  map 100% reduce 28%
+2021-09-26 22:00:43,878 INFO org.apache.hadoop.mapreduce.Job (main):  map 100% reduce 48%
+2021-09-26 22:00:44,882 INFO org.apache.hadoop.mapreduce.Job (main):  map 100% reduce 72%
+2021-09-26 22:00:45,885 INFO org.apache.hadoop.mapreduce.Job (main):  map 100% reduce 87%
+2021-09-26 22:00:50,904 INFO org.apache.hadoop.mapreduce.Job (main):  map 100% reduce 93%
+2021-09-26 22:00:52,910 INFO org.apache.hadoop.mapreduce.Job (main):  map 100% reduce 100%
+2021-09-26 22:00:53,919 INFO org.apache.hadoop.mapreduce.Job (main): Job job_1632689838828_0004 completed successfully
+2021-09-26 22:00:54,072 INFO org.apache.hadoop.mapreduce.Job (main): Counters: 56
+	File System Counters
+		FILE: Number of bytes read=200,919,468
+		FILE: Number of bytes written=247,988,865
+		FILE: Number of read operations=0
+		FILE: Number of large read operations=0
+		FILE: Number of write operations=0
+		HDFS: Number of bytes read=11520
+		HDFS: Number of bytes written=0
+		HDFS: Number of read operations=96
+		HDFS: Number of large read operations=0
+		HDFS: Number of write operations=0
+		S3: Number of bytes read=6,448,387,388
+		S3: Number of bytes written=925,567
+		S3: Number of read operations=0
+		S3: Number of large read operations=0
+		S3: Number of write operations=0
+	Job Counters
+		Killed map tasks=1
+		Killed reduce tasks=1
+		Launched map tasks=96
+		Launched reduce tasks=15
+		Data-local map tasks=96
+		Total time spent by all maps in occupied slots (ms)=332,013,015
+		Total time spent by all reduces in occupied slots (ms)=154,530,000
+		Total time spent by all map tasks (ms)=7,378,067
+		Total time spent by all reduce tasks (ms)=1,717,000
+		Total vcore-milliseconds taken by all map tasks=7,378,067
+		Total vcore-milliseconds taken by all reduce tasks=1,717,000
+		Total megabyte-milliseconds taken by all map tasks=10,624,416,480
+		Total megabyte-milliseconds taken by all reduce tasks=4,944,960,000
+	Map-Reduce Framework
+		Map input records=147,225,820
+		Map output records=1,066,576,324
+		Map output bytes=10,116,247,845
+		Map output materialized bytes=93,058,596
+		Input split bytes=11,520
+		Combine input records=1,066,576,324
+		Combine output records=13,017,600
+		Reduce input groups=67,800
+		Reduce shuffle bytes=93,058,596
+		Reduce input records=13,017,600
+		Reduce output records=67,800
+		Spilled Records=39,052,800
+		Shuffled Maps =1,440
+		Failed Shuffles=0
+		Merged Map outputs=1,440
+		GC time elapsed (ms)=93,563
+		CPU time spent (ms)=3,768,560
+		Physical memory (bytes) snapshot=83,440,455,680
+		Virtual memory (bytes) snapshot=375,619,985,408
+		Total committed heap usage (bytes)=79,932,424,192
+	Shuffle Errors
+		BAD_ID=0
+		CONNECTION=0
+		IO_ERROR=0
+		WRONG_LENGTH=0
+		WRONG_MAP=0
+		WRONG_REDUCE=0
+	File Input Format Counters
+		Bytes Read=6,448,387,388
+	File Output Format Counters
+		Bytes Written=925,567
