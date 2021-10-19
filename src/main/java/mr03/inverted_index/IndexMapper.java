@@ -10,7 +10,7 @@ import java.util.StringTokenizer;
 
 public class IndexMapper extends Mapper<LongWritable, Text, Text, Text> {
     private final Text wordAtFileNameKey = new Text();
-    private final Text oneString = new Text("1");
+    private final Text ONE_STRING = new Text("1");
 
     @Override
     protected void map(LongWritable key, Text value,
@@ -23,7 +23,7 @@ public class IndexMapper extends Mapper<LongWritable, Text, Text, Text> {
             // tokenizer.nextToken().replaceAll("[^a-zA-Z]", "").toLowerCase()
             //check for empty words
             wordAtFileNameKey.set(tokenizer.nextToken() + "@" + fileName);
-            context.write(wordAtFileNameKey, oneString);
+            context.write(wordAtFileNameKey, ONE_STRING);
         }
     }
 }

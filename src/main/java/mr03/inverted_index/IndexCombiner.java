@@ -15,6 +15,7 @@ public class IndexCombiner extends Reducer<Text, Text, Text, Text> {
             sum += Integer.parseInt(value.toString());
         }
         int splitIndex = key.toString().indexOf("@");
+
         fileAtWordFreqValue.set(key.toString().substring(splitIndex+1)+":"+sum);
         key.set(key.toString().substring(0,splitIndex));
         context.write(key, fileAtWordFreqValue);
