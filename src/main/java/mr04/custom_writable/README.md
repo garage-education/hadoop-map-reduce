@@ -69,22 +69,19 @@ public void readFields(DataInput in) throws IOException {
 ```java
 @Override
 public int hashCode(){
-    return Objects.hash(first.hashCode() + second.hashCode());
+    return Objects.hash(left, right);
 }
 ```
 
 - Override `equals` method
 ```java
 @Override
-public boolean equals(Object o)
-{
-    if(o instanceof TextPairWritable)
-    {
-        TextPairWritable tp = (TextPairWritable) o;
-        return first.equals(tp.first) && second.equals(tp.second);
-    }
-    return false;
-}
+public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        StringPairWritable that = (StringPairWritable) o;
+        return left.equals(that.left) && right.equals(that.right);
+        }
 ```
 
 ## Applications
@@ -92,3 +89,5 @@ public boolean equals(Object o)
 - Any application with custom objects as key.
   * GeoLocation applications lat,long
   * Custom address objects city, street, postcode.
+  
+## Homework Labs

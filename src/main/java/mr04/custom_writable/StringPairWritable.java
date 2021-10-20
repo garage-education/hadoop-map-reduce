@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 import org.apache.hadoop.io.WritableComparable;
+
 //https://hadoop.apache.org/docs/r3.1.1/api/org/apache/hadoop/io/Writable.html
 public class StringPairWritable implements WritableComparable<StringPairWritable> {
 
@@ -15,8 +16,7 @@ public class StringPairWritable implements WritableComparable<StringPairWritable
     /**
      * Empty constructor - required for serialization.
      */
-    public StringPairWritable()
-    {
+    public StringPairWritable() {
 
     }
 
@@ -31,8 +31,7 @@ public class StringPairWritable implements WritableComparable<StringPairWritable
     /**
      * Serializes the fields of this object to out.
      */
-    public void write(DataOutput out) throws IOException
-    {
+    public void write(DataOutput out) throws IOException {
         out.writeUTF(this.left);
         out.writeUTF(this.right);
     }
@@ -40,34 +39,9 @@ public class StringPairWritable implements WritableComparable<StringPairWritable
     /**
      * Deserializes the fields of this object from in.
      */
-    public void readFields(DataInput in) throws IOException
-    {
+    public void readFields(DataInput in) throws IOException {
         this.left = in.readUTF();
         this.right = in.readUTF();
-    }
-
-    /**
-     * Compares this object to another StringPairWritable object by
-     * comparing the left strings first. If the left strings are equal,
-     * then the right strings are compared.
-     */
-    public int compareTo(StringPairWritable other)
-    {
-        int ret = this.left.compareTo(other.left);
-        if(ret==0)
-        {
-            ret = this.right.compareTo(other.right);
-        }
-        return ret;
-    }
-
-    /**
-     * A custom method that returns the two strings in the
-     * StringPairWritable object inside parentheses and separated by
-     * a comma. For example: "(left,right)".
-     */
-    public String toString() {
-        return "(" + left + "," + right + ")";
     }
 
     /**
@@ -78,22 +52,11 @@ public class StringPairWritable implements WritableComparable<StringPairWritable
      * option.
      */
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        StringPairWritable other = (StringPairWritable) obj;
-        if (left == null) {
-            if (other.left != null)
-                return false;
-        } else if (!left.equals(other.left))
-            return false;
-        if (right == null) {
-            return other.right == null;
-        } else return right.equals(other.right);
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        StringPairWritable that = (StringPairWritable) o;
+        return left.equals(that.left) && right.equals(that.right);
     }
 
     /**
@@ -105,7 +68,45 @@ public class StringPairWritable implements WritableComparable<StringPairWritable
      */
     @Override
     public int hashCode() {
-        return Objects.hash(right.hashCode() + left.hashCode());
+        return Objects.hash(left, right);
+    }
+
+
+    /**
+     * A custom method that returns the two strings in the
+     * StringPairWritable object inside parentheses and separated by
+     * a comma. For example: "(left,right)".
+     */
+    @Override
+    public String toString() {
+        return "(" + left + "," + right + ")";
 
     }
+
+    //https://newbedev.com/how-to-simplify-a-null-safe-compareto-implementation
+    public static int nullSafeStringComparator(final String left, final String right) {
+        if (left == null ^ right == null) {
+            return (left == null) ? -1 : 1;
+        }
+        if (left == null && right == null) {
+            return 0;
+        }return left.compareTo(right);
+    }
+
+    /**
+     * Compares this object to another StringPairWritable object by
+     * comparing the left strings first. If the left strings are equal,
+     * then the right strings are compared.
+     */
+    public int compareTo(StringPairWritable other) {
+        if (other == null) {
+            throw new NullPointerException();
+        }
+        int result = nullSafeStringComparator(this.left, other.left);
+        if (result != 0) return result;
+        return nullSafeStringComparator(this.right, other.right);
+
+    }
+
+
 }
