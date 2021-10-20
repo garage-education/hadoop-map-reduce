@@ -1,6 +1,6 @@
 # Lab Goal
 
-In this lab, we will implement `Hadoop Create Custom Key Writable`
+In this lab, we will Create `Custom Key Writable` in Hadoop MapReduce.
 
 # Problem Background
 
