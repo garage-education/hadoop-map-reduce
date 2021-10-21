@@ -53,11 +53,11 @@ public StringPairWritable(String left, String right) {
 
 For more information about Why does Hadoop need empty Constructor? 
 
-- https://www.javatpoint.com/java-reflection
-- https://www.javatpoint.com/new-instance()-method
-- https://stackoverflow.com/a/18099352/2516356
-- https://stackoverflow.com/a/11447050/2516356
-- https://qr.ae/pGVLoh
+  1. https://www.javatpoint.com/java-reflection
+  1. https://www.javatpoint.com/new-instance()-method
+  1. https://stackoverflow.com/a/18099352/2516356
+  1. https://stackoverflow.com/a/11447050/2516356
+  1. https://qr.ae/pGVLoh
 
 - Override `write` method
 ```java 
