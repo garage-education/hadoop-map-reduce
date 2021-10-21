@@ -29,40 +29,51 @@ Ref: https://stackoverflow.com/a/32518079
 - Implement `Writable` Interface
   Example
 ```java 
-public class TextPairWritable implements WritableComparable<StringPairWritable> {
+public class StringPairWritable implements WritableComparable<StringPairWritable> 
 ```
 - Add `Default Constructor`
 
   Example:
 ```java
-public TextPairWritable(Text first, Text second) {
-    set(first, second);
+ /**
+ * Empty constructor - required for serialization.
+ */
+
+public StringPairWritable() {
 }
 
-public TextPairWritable() {
-    set(new Text(), new Text());
-}
-
-public TextPairWritable(String first, String second) {
-    set(new Text(first), new Text(second));
+/**
+ * Constructor with two String objects provided as input.
+ */
+public StringPairWritable(String left, String right) {
+    this.left = left;
+    this.right = right;
 }
 ```
+
+For more information about Why does Hadoop need empty Constructor? 
+
+- https://www.javatpoint.com/java-reflection
+- https://www.javatpoint.com/new-instance()-method
+- https://stackoverflow.com/a/18099352/2516356
+- https://stackoverflow.com/a/11447050/2516356
+- https://qr.ae/pGVLoh
 
 - Override `write` method
 ```java 
 @Override
 public void write(DataOutput out) throws IOException {
-    first.write(out);
-    second.write(out);
-}
+        out.writeUTF(this.left);
+        out.writeUTF(this.right);
+    }
 ```
 - Override `readFields` method
 ```java 
 @Override
 public void readFields(DataInput in) throws IOException {
-    first.readFields(in);
-    second.readFields(in);
-}
+        this.left = in.readUTF();
+        this.right = in.readUTF();
+    }
 ```
 
 - Override `hashCode` method
@@ -91,3 +102,4 @@ public boolean equals(Object o) {
   * Custom address objects city, street, postcode.
   
 ## Homework Labs
+
