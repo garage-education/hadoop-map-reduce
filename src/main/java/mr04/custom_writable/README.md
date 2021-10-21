@@ -103,3 +103,26 @@ public boolean equals(Object o) {
   
 ## Homework Labs
 
+### Dataset
+
+A CSV dataset containing 1710671 taxi trajectories recorded over one year (from 2013/07/01 to 2014/06/30) in the city of Porto, in Portugal.
+The dataset is derived from the "Taxi Service Trajectory - Prediction Challenge, ECML PKDD 2015 Data Set".
+
+Each CSV row contains:
+- taxi_id: numeric value identifying an involved taxi;
+- trajectory_id: numeric value identifying a trajectory in the original dataset;
+- timestamp: a timestamp corresponding to the starting time of the taxi ride;
+- source_point: GPS point representing the origin of the taxi ride;
+- target_point: GPS point representing the destination of the taxi ride;
+
+Coordinates are given in POINT(longitude latitude) format using the EPSG:4326 Geodetic coordinate system.
+[Source](https://figshare.com/articles/dataset/Porto_taxi_trajectories/12302165)
+
+### Task
+
+Based on the `source_point`, calculate the count the number of `taxi_id` per source_point.
+
+You will need to extract the source_point field and convert it to keypair type of (DoubleWritable,DoubleWritable)
+
+Expected output 
+(Lat,Long), Count
