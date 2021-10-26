@@ -29,40 +29,51 @@ Ref: https://stackoverflow.com/a/32518079
 - Implement `Writable` Interface
   Example
 ```java 
-public class TextPairWritable implements WritableComparable<StringPairWritable> {
+public class StringPairWritable implements WritableComparable<StringPairWritable> 
 ```
 - Add `Default Constructor`
 
   Example:
 ```java
-public TextPairWritable(Text first, Text second) {
-    set(first, second);
+ /**
+ * Empty constructor - required for serialization.
+ */
+
+public StringPairWritable() {
 }
 
-public TextPairWritable() {
-    set(new Text(), new Text());
-}
-
-public TextPairWritable(String first, String second) {
-    set(new Text(first), new Text(second));
+/**
+ * Constructor with two String objects provided as input.
+ */
+public StringPairWritable(String left, String right) {
+    this.left = left;
+    this.right = right;
 }
 ```
+
+For more information about Why does Hadoop need empty Constructor? 
+
+  1. https://www.javatpoint.com/java-reflection
+  1. https://www.javatpoint.com/new-instance()-method
+  1. https://stackoverflow.com/a/18099352/2516356
+  1. https://stackoverflow.com/a/11447050/2516356
+  1. https://qr.ae/pGVLoh
 
 - Override `write` method
 ```java 
 @Override
 public void write(DataOutput out) throws IOException {
-    first.write(out);
-    second.write(out);
-}
+        out.writeUTF(this.left);
+        out.writeUTF(this.right);
+    }
 ```
 - Override `readFields` method
 ```java 
 @Override
 public void readFields(DataInput in) throws IOException {
-    first.readFields(in);
-    second.readFields(in);
-}
+        this.left = in.readUTF();
+        this.right = in.readUTF();
+    }
 ```
 
 - Override `hashCode` method
@@ -91,3 +102,27 @@ public boolean equals(Object o) {
   * Custom address objects city, street, postcode.
   
 ## Homework Labs
+
+### Dataset
+
+A CSV dataset containing 1710671 taxi trajectories recorded over one year (from 2013/07/01 to 2014/06/30) in the city of Porto, in Portugal.
+The dataset is derived from the "Taxi Service Trajectory - Prediction Challenge, ECML PKDD 2015 Data Set".
+
+Each CSV row contains:
+- taxi_id: numeric value identifying an involved taxi;
+- trajectory_id: numeric value identifying a trajectory in the original dataset;
+- timestamp: a timestamp corresponding to the starting time of the taxi ride;
+- source_point: GPS point representing the origin of the taxi ride;
+- target_point: GPS point representing the destination of the taxi ride;
+
+Coordinates are given in POINT(longitude latitude) format using the EPSG:4326 Geodetic coordinate system.
+[Source](https://figshare.com/articles/dataset/Porto_taxi_trajectories/12302165)
+
+### Task
+
+Based on the `source_point`, calculate the count the number of `taxi_id` per source_point.
+
+You will need to extract the source_point field and convert it to keypair type of (DoubleWritable,DoubleWritable)
+
+Expected output 
+(Lat,Long), Count
