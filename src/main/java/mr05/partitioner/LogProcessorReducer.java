@@ -1,6 +1,8 @@
-package partitioner;
+package mr05.partitioner;
 
 import java.io.IOException;
+import java.util.Collection;
+
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
@@ -16,8 +18,9 @@ public class LogProcessorReducer extends Reducer<Text, Text, Text, IntWritable> 
         //In this example we count the values
         for (@SuppressWarnings("unused")
                 Text val : values) {
-            numberOfHits ++ ;
+            numberOfHits++;
         }
+
         result.set(numberOfHits);
         context.write(key, result);
     }

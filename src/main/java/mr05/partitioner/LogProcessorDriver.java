@@ -1,5 +1,7 @@
-package partitioner;
+package mr05.partitioner;
 
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
@@ -15,13 +17,23 @@ public class LogProcessorDriver {
             System.out.printf("Usage: ProcessLogs <input dir> <output dir>\n");
             System.exit(-1);
         }
+        Configuration conf = new Configuration();
+        String input = args[0];
+        String output = args[1];
 
-        Job job = Job.getInstance();
+        FileSystem fs = FileSystem.get(conf);
+        boolean exists = fs.exists(new Path(output));
+        if (exists) {
+            fs.delete(new Path(output), true);
+        }
+
+        Job job = Job.getInstance(conf);
+
         job.setJarByClass(LogProcessorDriver.class);
         job.setJobName("Process Logs");
 
-        FileInputFormat.setInputPaths(job, new Path(args[0]));
-        FileOutputFormat.setOutputPath(job, new Path(args[1]));
+        FileInputFormat.setInputPaths(job, new Path(input));
+        FileOutputFormat.setOutputPath(job, new Path(output));
 
         job.setMapperClass(LogProcessorMapper.class);
         job.setReducerClass(LogProcessorReducer.class);

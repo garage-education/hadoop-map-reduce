@@ -1,4 +1,4 @@
-package partitioner;
+package mr05.partitioner;
 
 
 import java.util.HashMap;
