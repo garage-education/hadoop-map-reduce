@@ -1,0 +1,4 @@
+hdfs hadoop mapreduce
+hdfs bigdata
+hadoop mapreduce
+The cat sat on the mat

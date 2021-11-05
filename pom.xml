@@ -53,7 +53,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>mr01.SimpleWordCount</mainClass>
+                            <mainClass>mr02.SimpleWordCount</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
