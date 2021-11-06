@@ -1,6 +1,61 @@
 ![Lab Design](./Secondary_Sort.jpg)
 
 
+### Input
+
+The input will be a set of files, where each record (line) will have the following format:
+
+```
+Format:
+        <year><,><month><,><day><,><temperature>
+
+Example:
+        2012, 01, 01, 35
+        2011, 12, 23, -4
+```
+
+### Expected Output
+
+The expected output will have the following format:
+```
+Format:
+        <year><-><month>: <temperature1><,><temperature2><,> ...
+        where temperature1 <= temperature2 <= ...
+
+Example:
+        2012-01:  5, 10, 35, 45, ...
+        2001-11: 40, 46, 47, 48, ...
+        2005-08: 38, 50, 52, 70, ...
+```
+
+
+The difference in the results between 
+
+- With `DateTemperatureGroupingComparator`
+```
+201301	90,80,70,-10,
+201212	70,60,30,10,-20,
+200012	10,-20,
+200011	30,20,-40,
+
+```
+- Without
+```
+201301	90,
+201301	80,
+201301	70,
+201301	-10,
+201212	70,
+201212	60,
+201212	30,
+201212	10,
+201212	-20,
+200012	10,
+200012	-20,
+200011	30,
+200011	20,
+200011	-40,
+```
 **Important Note: This lab description is copied from** https://www.oreilly.com/library/view/data-algorithms/9781491906170/ch01.html
 
 **All the copyrights for this code and the text is belong to chapter.01 in the data algorithms book.** 
@@ -86,32 +141,6 @@ To implement the secondary sort feature, we need additional plug-in Java classes
 - How to group data that has arrived at each reducer
 
 
-### Input
-
-The input will be a set of files, where each record (line) will have the following format:
-
-```
-Format:
-        <year><,><month><,><day><,><temperature>
-
-Example:
-        2012, 01, 01, 35
-        2011, 12, 23, -4
-```
-
-### Expected Output
-
-The expected output will have the following format:
-```
-Format:
-        <year><-><month>: <temperature1><,><temperature2><,> ...
-        where temperature1 <= temperature2 <= ...
-
-Example:
-        2012-01:  5, 10, 35, 45, ...
-        2001-11: 40, 46, 47, 48, ...
-        2005-08: 38, 50, 52, 70, ...
-```
 
 ### DateTemperaturePair
 
@@ -224,36 +253,5 @@ job.setMapperClass(SecondarySortingTemperatureMapper.class);
 job.setReducerClass(SecondarySortingTemperatureReducer.class);
 job.setPartitionerClass(TemperaturePartitioner.class);
 job.setGroupingComparatorClass(YearMonthGroupingComparator.class);
-
-```
-
-The difference in the results with `DateTemperatureGroupingComparator` vs without
-
-- With `DateTemperatureGroupingComparator`
-```
-201301	90,80,70,-10,
-201212	70,60,30,10,-20,
-200012	10,-20,
-200011	30,20,-40,
-
-```
-- Without
-```
-201301	90,
-201301	80,
-201301	70,
-201301	-10,
-201212	70,
-201212	60,
-201212	30,
-201212	10,
-201212	-20,
-200012	10,
-200012	-20,
-200011	30,
-200011	20,
-200011	-40,
-
-
 
 ```
