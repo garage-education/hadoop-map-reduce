@@ -1,7 +1,7 @@
 package mr07.reduce_side_join;
 
 import mr06.secondary_sort.SecondarySortDriver;
-import mr08_map_side_join.DriverReplicatedJoin;
+import mr08.map_side_join.DriverReplicatedJoin;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.conf.Configured;
 import org.apache.hadoop.fs.FileSystem;

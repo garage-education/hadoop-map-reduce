@@ -1,4 +1,4 @@
-package mr08_map_side_join;
+package mr08.map_side_join;
 
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.io.LongWritable;
