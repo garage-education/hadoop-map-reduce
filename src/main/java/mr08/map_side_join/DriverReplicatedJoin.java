@@ -23,7 +23,6 @@ public class DriverReplicatedJoin extends Configured implements Tool {
         String inputLookupData = args[1];
         String output = args[2];
         Configuration conf = new Configuration();
-        conf.set("join.type", "inner");
         conf.set("lkp.file.path", inputLookupData);
         conf.set("mapreduce.output.textoutputformat.separator", DATA_SEPARATOR);
 
@@ -76,7 +75,7 @@ public class DriverReplicatedJoin extends Configured implements Tool {
      */
     public static int submitJob(String[] args) throws Exception {
 
-        int returnStatus = ToolRunner.run(new SecondarySortDriver(), args);
+        int returnStatus = ToolRunner.run(new DriverReplicatedJoin(), args);
         return returnStatus;
     }
 }
