@@ -19,7 +19,7 @@ public class UserLocationHistReducer extends Reducer<LongWritable, Text, LongWri
                           Reducer<LongWritable, Text, LongWritable, Text>.Context context) throws IOException, InterruptedException {
         String cellLKP = null;
         String userTransactions = null;
-        LinkedList<String> trnxs = new LinkedList<>();
+        //LinkedList<String> trnxs = new LinkedList<>();
 
         for (Text txtValue : values) {
 
