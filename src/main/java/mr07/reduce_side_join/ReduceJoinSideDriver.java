@@ -26,7 +26,12 @@ public class ReduceJoinSideDriver extends Configured implements Tool {
         String AddressLkp = args[1];
         String output = args[2];
         Configuration conf = new Configuration();
-        conf.set("mapreduce.output.textoutputformat.separator", DATA_SEPARATOR);
+        //conf.set("mapreduce.output.textoutputformat.separator", DATA_SEPARATOR);
+        conf.set("input.file.separator", DATA_SEPARATOR);
+        conf.set("cell.lkp.tag","Cell~");
+        conf.set("trnx.tag","TRNX~");
+
+
         FileSystem fs = FileSystem.get(conf);
         boolean exists = fs.exists(new Path(output));
         if (exists) {
@@ -42,9 +47,9 @@ public class ReduceJoinSideDriver extends Configured implements Tool {
         job.setOutputValueClass(Text.class);
         job.setInputFormatClass(TextInputFormat.class);
         job.setOutputFormatClass(TextOutputFormat.class);
-        job.setReducerClass(UserAddressDetailReducer.class);
-        MultipleInputs.addInputPath(job, new Path(userDetailData), TextInputFormat.class, UserDetailMapper.class);
-        MultipleInputs.addInputPath(job, new Path(AddressLkp), TextInputFormat.class, AddressMapper.class);
+        job.setReducerClass(UserLocationHistReducer.class);
+        MultipleInputs.addInputPath(job, new Path(userDetailData), TextInputFormat.class, UserTrnxsMapper.class);
+        MultipleInputs.addInputPath(job, new Path(AddressLkp), TextInputFormat.class, CellMapper.class);
         FileOutputFormat.setOutputPath(job, new Path(output));
         boolean status = job.waitForCompletion(true);
         logger.info("run(): status="+status);
@@ -81,7 +86,7 @@ public class ReduceJoinSideDriver extends Configured implements Tool {
      */
     public static int submitJob(String[] args) throws Exception {
 
-        int returnStatus = ToolRunner.run(new SecondarySortDriver(), args);
+        int returnStatus = ToolRunner.run(new ReduceJoinSideDriver(), args);
         return returnStatus;
     }
 }
