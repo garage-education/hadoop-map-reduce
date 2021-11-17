@@ -10,7 +10,7 @@ public class UserTrnxsMapper extends Mapper<LongWritable, Text, LongWritable, Te
 
     public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
         String DATA_SEPARATOR = context.getConfiguration().get("input.file.separator");
-        String transactionFileTag =context.getConfiguration().get("trnx.tag");
+        String transactionFileTag = context.getConfiguration().get("trnx.tag");
         String values[] = value.toString().split(DATA_SEPARATOR);
         StringBuilder dataStringBuilder = new StringBuilder();
         for (int index = 0; index < values.length; index++) {
