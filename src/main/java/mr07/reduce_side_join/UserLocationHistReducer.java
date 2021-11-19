@@ -5,21 +5,23 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 
 import java.io.IOException;
-import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
+import java.util.LinkedList;
 
 public class UserLocationHistReducer extends Reducer<LongWritable, Text, LongWritable, Text> {
-    public static final String TAG_SEPARATOR = "~";
-    private static final String DATA_SEPARATOR = ",";
+
+    private static final String UNKNOWN_CELL = "???,???,???,???";
+    private static final String TAG_SEPARATOR = "~";
+
 
     @Override
     protected void reduce(LongWritable key, Iterable<Text> values,
                           Reducer<LongWritable, Text, LongWritable, Text>.Context context) throws IOException, InterruptedException {
+        String DATA_SEPARATOR = context.getConfiguration().get("input.file.separator");
+        String transactionFileTag = context.getConfiguration().get("trnx.tag");
+
         String cellLKP = null;
         String userTransactions = null;
-        //LinkedList<String> trnxs = new LinkedList<>();
+        LinkedList<String> trnxs = new LinkedList<>();
 
         for (Text txtValue : values) {
 
@@ -28,19 +30,25 @@ public class UserLocationHistReducer extends Reducer<LongWritable, Text, LongWri
             String tag = spllitedValues[0];
             String rowValue = spllitedValues[1];
             if (tag.equalsIgnoreCase("TRNX")) {
-                userTransactions=rowValue;
+                trnxs.add(rowValue);
+                //userTransactions = rowValue;
             } else if (tag.equalsIgnoreCase("Cell")) {
                 cellLKP = rowValue;
             }
         }
 
         String outputJoin = null;
-        if (userTransactions != null && cellLKP != null) {
-            outputJoin = userTransactions + DATA_SEPARATOR + cellLKP;
-        } else if (cellLKP == null) {
-            outputJoin = userTransactions + DATA_SEPARATOR + "???,???,???,???";
+        for (String trnx : trnxs) {
+            if (trnx != null && cellLKP != null) {
+                outputJoin = trnx + DATA_SEPARATOR + cellLKP;
+                context.write(key, new Text(outputJoin));
+            } else if (cellLKP == null) {
+                outputJoin = trnx + DATA_SEPARATOR + UNKNOWN_CELL;
+                context.write(key, new Text(outputJoin));
+            }
         }
-        context.write(key, new Text(outputJoin));
+        trnxs.clear();
+
     }
 
 }

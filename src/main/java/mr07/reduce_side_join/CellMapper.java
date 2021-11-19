@@ -17,15 +17,13 @@ public class CellMapper extends Mapper<LongWritable, Text, LongWritable, Text> {
         StringBuilder dataStringBuilder = new StringBuilder();
         for (int index = 0; index < values.length; index++) {
             if (index != 0) {
-                dataStringBuilder.append(values[index].toString().trim() + DATA_SEPARATOR);
+                dataStringBuilder.append(values[index].trim() + DATA_SEPARATOR);
             } else {
                 dataStringBuilder.append(cellFileTag);
             }
         }
         String dataString = dataStringBuilder.toString();
-        if (dataString != null && dataString.length() > 1) {
-            dataString = dataString.substring(0, dataString.length() - 1);
-        }
+
         dataStringBuilder = null;
         context.write(new LongWritable(Long.parseLong(values[0])), new Text(dataString));
     }
