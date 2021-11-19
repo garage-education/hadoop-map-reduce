@@ -17,19 +17,27 @@ import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
 import org.apache.log4j.Logger;
 
+
+/*        Cell-> 123,4,4G,....
+        Cust-> 123,4,12414,Ali
+        123,([Cell~4,4G,...],[TRNX~4,12414,Ali,...)*/
 public class ReduceJoinSideDriver extends Configured implements Tool {
     private static final String DATA_SEPARATOR = ",";
+    private static final String CELL_TAG = "Cell~";
+    private static final String TRNX_TAG = "TRNX~";
+
+
     private static Logger logger = Logger.getLogger(DriverReplicatedJoin.class);
 
     public int run(String[] args) throws Exception {
         String userDetailData = args[0];
-        String AddressLkp = args[1];
+        String cellLKp = args[1];
         String output = args[2];
         Configuration conf = new Configuration();
-        //conf.set("mapreduce.output.textoutputformat.separator", DATA_SEPARATOR);
+        conf.set("mapreduce.output.textoutputformat.separator", DATA_SEPARATOR);
         conf.set("input.file.separator", DATA_SEPARATOR);
-        conf.set("cell.lkp.tag","Cell~");
-        conf.set("trnx.tag","TRNX~");
+        conf.set("cell.lkp.tag",CELL_TAG);
+        conf.set("trnx.tag",TRNX_TAG);
 
 
         FileSystem fs = FileSystem.get(conf);
@@ -49,7 +57,7 @@ public class ReduceJoinSideDriver extends Configured implements Tool {
         job.setOutputFormatClass(TextOutputFormat.class);
         job.setReducerClass(UserLocationHistReducer.class);
         MultipleInputs.addInputPath(job, new Path(userDetailData), TextInputFormat.class, UserTrnxsMapper.class);
-        MultipleInputs.addInputPath(job, new Path(AddressLkp), TextInputFormat.class, CellMapper.class);
+        MultipleInputs.addInputPath(job, new Path(cellLKp), TextInputFormat.class, CellMapper.class);
         FileOutputFormat.setOutputPath(job, new Path(output));
         boolean status = job.waitForCompletion(true);
         logger.info("run(): status="+status);
